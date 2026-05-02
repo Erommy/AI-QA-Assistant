@@ -1,0 +1,24 @@
+# Maven build output
+target/
+
+# H2 database files (local dev only)
+data/
+
+# Environment secrets — never commit these
+.env
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+
+# IDE / OS
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Spring Boot devtools
+*.pid
+
+# Log files
+*.log
