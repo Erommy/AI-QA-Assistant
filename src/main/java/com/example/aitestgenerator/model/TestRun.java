@@ -14,8 +14,7 @@ public class TestRun {
     @Column(nullable = false, length = 1000)
     private String feature;
 
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private String generatedJson;
 
     private double confidenceScore;
