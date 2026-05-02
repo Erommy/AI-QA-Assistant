@@ -14,10 +14,18 @@ services:
         value: prod
       - key: OPENAI_API_KEY
         sync: false
-      - key: DB_URL
+      - key: DB_HOST
         fromDatabase:
           name: ai-qa-db
-          property: jdbcConnectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ai-qa-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: ai-qa-db
+          property: database
       - key: DB_USER
         fromDatabase:
           name: ai-qa-db
