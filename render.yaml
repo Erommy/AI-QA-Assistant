@@ -17,7 +17,7 @@ services:
       - key: DB_URL
         fromDatabase:
           name: ai-qa-db
-          property: connectionString
+          property: jdbcConnectionString
       - key: DB_USER
         fromDatabase:
           name: ai-qa-db
