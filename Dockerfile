@@ -19,6 +19,6 @@ COPY --from=builder /app/target/*.jar app.jar
 # Activate the production Spring profile
 ENV SPRING_PROFILES_ACTIVE=prod
 
-EXPOSE 8080
+EXPOSE 10000
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
