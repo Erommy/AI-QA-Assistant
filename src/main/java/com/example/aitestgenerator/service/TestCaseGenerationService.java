@@ -54,7 +54,7 @@ public class TestCaseGenerationService {
                     double score = calculateConfidenceScore(lastResponse);
                     lastResponse.setConfidenceScore(score);
                     log.info("Generation succeeded on attempt {}. Confidence score: {}", attempt, score);
-                    historyService.save(feature, lastResponse);
+                    saveHistory(feature, lastResponse);
                     return lastResponse;
                 } else {
                     log.warn("Attempt {} failed validation: {}", attempt, validation.getErrors());
@@ -67,6 +67,14 @@ public class TestCaseGenerationService {
 
         log.warn("All {} attempts failed. Returning fallback response for feature: {}", MAX_ATTEMPTS, feature);
         return fallbackResponse();
+    }
+
+    private void saveHistory(String feature, TestCaseResponse response) {
+        try {
+            historyService.save(feature, response);
+        } catch (Exception e) {
+            log.error("History save failed (generation result unaffected): {}", e.getMessage());
+        }
     }
 
     private double calculateConfidenceScore(TestCaseResponse response) {
