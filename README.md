@@ -109,6 +109,40 @@ docker compose down -v       # also deletes the database
 
 ---
 
+## Deploying to Render (free tier)
+
+Render can deploy the app directly from GitHub with zero server management.
+
+### 1. Prerequisites
+- A [Render account](https://render.com)
+- Your GitHub repo connected to Render
+
+### 2. Deploy
+
+Click the button below or go to **Render Dashboard → New → Blueprint** and point it at your repo. Render will detect `render.yaml` and provision everything automatically.
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+
+What gets created:
+- A **PostgreSQL** database (free tier)
+- A **Web Service** that builds the jar with `mvn clean package -Pprod` and runs it
+
+### 3. Set the OpenAI API key
+
+After the first deploy, go to your Web Service → **Environment** and add:
+```
+OPENAI_API_KEY = sk-...
+```
+Then trigger a manual redeploy.
+
+### 4. Access the app
+
+Render provides a public URL like `https://ai-qa-assistant.onrender.com`. The React UI and API are both served from that single URL.
+
+> **Free tier note:** The web service spins down after 15 minutes of inactivity and takes ~30 seconds to wake up on the next request. Upgrade to the Starter plan ($7/month) to keep it always-on.
+
+---
+
 ## Sample input / output
 
 **Request:**
@@ -209,6 +243,7 @@ Each successful response is **validated** (all 9 fields present, arrays non-empt
 ```
 ├── Dockerfile                                 Two-stage prod build (Maven + JRE)
 ├── docker-compose.yml                         Runs app + PostgreSQL together
+├── render.yaml                                One-click Render deployment config
 ├── .env.example                               Template for required env vars
 ├── pom.xml                                    Maven — dev (default) and prod profiles
 │
